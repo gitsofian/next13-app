@@ -3,7 +3,6 @@
 
 import { z } from "zod";
 
-
 const schema = z.object({
     prod_id: z.number(),
     prod_name: z.string({
