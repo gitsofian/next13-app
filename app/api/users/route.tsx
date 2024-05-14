@@ -10,8 +10,8 @@ export function GET(request: NextRequest){ // to cache data in browser removing 
 
     return NextResponse.json(
         [
-            {id: 1000, "name": "Sofiane"},
-            {id: 2, name:"Samir"}
+            {id: 1000, "name": "Sofiane", "email": "sofian.me@getMaxListeners.com"},
+            {id: 2, name:"Samir", "email": "samir@gmail.com"}
         ]);
 }
 

@@ -48,7 +48,14 @@ export async function PUT(request: NextRequest, {params:{user_id}}: Props) {
     if(user_id > 10)
         return(NextResponse.json({error: "User don't exist!"}, {status: 404}))
     
-    return (NextResponse.json({user_id: user_id, name: body.name}, {status: 200}))    
+    return (NextResponse.json(
+        {
+            user_id: user_id, 
+            name: body.name, 
+            email: body.email,
+            age: body.age
+        }, 
+        {status: 200}))    
 }
 
 export async function DELETE(request: NextRequest, {params:{user_id}}:Props){
