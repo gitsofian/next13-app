@@ -25,7 +25,7 @@ export function GET(request: NextRequest, {params:{user_id}}: Props) {
 
 
     if(user_id > 10)
-        return NextResponse.json({error: 'User not found!'}, { status: '404'});
+        return NextResponse.json({error: 'User not found!'}, { status: 404});
 
     return NextResponse.json({id: 1, name:"Sofiane"});
 
@@ -60,7 +60,9 @@ export async function DELETE(request: NextRequest, {params:{user_id}}:Props){
     // return empty
 
     const body = await request.json()
-    if(!body.name)
+    const validation = schema.safeParse(body)
+
+    if(!validation.success)
         return (NextResponse.json({error: "User is required"}, {status:400}))
 
     if(user_id > 10)
