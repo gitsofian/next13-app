@@ -24,10 +24,10 @@ export function GET(request: NextRequest, {params:{prod_id}}: Props) {
     // else return data
 
 
-    if(prod_id > 10)
+    if(prod_id > 100)
         return NextResponse.json({error: 'Product not found!'}, { status: 404});
 
-    return NextResponse.json({prod_id: 10, prod_name: "Indefined", prod_price: 0});
+    return NextResponse.json({prod_id: 10, prod_name: "Indefined", prod_price: 0.00});
 
 }
 

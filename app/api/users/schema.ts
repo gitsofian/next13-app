@@ -10,7 +10,7 @@ const schema = z.object({
             .regex(new RegExp(/^[a-zA-Z]+[-'s]?[a-zA-Z ]+$/), {message:'Name should contain only alphabets'})
             .min(3, {message: 'Name should have atleast 3 alphabets'}),
     email: z.string().email(),
-    age: z.number()
+    age: z.number().nonnegative().max(120)
 });
 
 export default schema;

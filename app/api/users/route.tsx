@@ -4,15 +4,19 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import schema from "./schema";
+import { prisma } from "@/prisma/client";
+
+
 
 // how to return a collection of users
-export function GET(request: NextRequest){ // to cache data in browser removing the "request: NextRequest" to prevent caching data in Browser add this parameter! 
+export async function GET(request: NextRequest){ // to cache data in browser removing the "request: NextRequest" to prevent caching data in Browser add this parameter! 
 
-    return NextResponse.json(
-        [
-            {id: 1000, "name": "Sofiane", "email": "sofian.me@getMaxListeners.com"},
-            {id: 2, name:"Samir", "email": "samir@gmail.com"}
-        ]);
+    const users = await prisma.user.findMany({
+        where: {
+        }
+    })
+
+    return NextResponse.json(users);
 }
 
 // how to create a user
@@ -26,5 +30,20 @@ export async function POST(request: NextRequest){
     if(!validation.success)
         return (NextResponse.json(validation.error.errors, {status: 400}));
     
-    return (NextResponse.json({id:1, name:body.name}, {status: 201}))
+    const user = await prisma.user.findUnique({
+        where: {
+            email: body.email,
+        }
+    })
+    if (user)
+        return (NextResponse.json({error: "User already exist!"}, {status: 400}));
+
+    const newUser = await prisma.user.create({
+        data: {
+            name: body.name,
+            email: body.email,
+            age: body.age
+        }
+    })
+    return (NextResponse.json(newUser, {status: 201}))
 }
