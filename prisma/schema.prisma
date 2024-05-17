@@ -22,3 +22,9 @@ model User {
   registerAt DateTime @default(now())
   age        Int      @default(16)
 }
+
+model Product {
+  id         Int    @id @default(autoincrement())
+  prod_name  String
+  prod_price Float
+}
